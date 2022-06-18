@@ -1,22 +1,69 @@
-const changeBG = (event) => {
+const sketchEtch = (event) => {
+    const optionsBtn = document.getElementById("color_options_btn");
+    const currAction = optionsBtn.value;
+    const currColor = 'black';
+    const powerSwitch = document.querySelector('.grid_power_switch');
+    const currPowerState = powerSwitch.id;
+    if(currPowerState==='on') {
+        switch(currAction) {
+            case 'colorBG':
+                colorBG(event, currColor);
+                break;
+            case 'rainbowBG':
+                rainbowBG(event);
+                break;
+            case 'eraseBG':
+                eraseBG(event);
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+const colorBG = (event, currColor) => {
     const target_cell = document.getElementById(event.target.id);
-    target_cell.style.backgroundColor = 'black';
+    target_cell.style.backgroundColor = `${currColor}`;
+}
+
+const rainbowBG = (event) => {
+    const colorArr = ['rgb(0, 250, 255)', 'rgb(40, 0, 255)', 'rgb(255, 0, 220)', 'rgb(0, 255, 20)'];
+    const rand = Math.floor(Math.random() * 4);
+    const target_cell = document.getElementById(event.target.id);
+    target_cell.style.backgroundColor = `${colorArr[rand]}`;
+}
+
+const eraseBG = (event) => {
+    const target_cell = document.getElementById(event.target.id);
+    target_cell.style.backgroundColor = 'rgb(155, 175, 185)';
+}
+
+const toggleOn = () => {
+    const powerSwitch = document.querySelector('.grid_power_switch');
+    powerSwitch.id = 'on';
+}
+
+const toggleOff = () => {
+    const powerSwitch = document.querySelector('.grid_power_switch');
+    powerSwitch.id = 'off';
 }
 
 const listenMouseOver = () => {
     const gridCells = document.querySelectorAll('.cells');
     gridCells.forEach((gridCell) => {
-        gridCell.addEventListener('mouseover', changeBG);
+        gridCell.addEventListener('mousedown', toggleOn);
+        gridCell.addEventListener('mouseup', toggleOff);
+        gridCell.addEventListener('mouseover', sketchEtch);
     });  
 }
 
 const handleButtonClickGrid = (event) => {
-    const newGridSize = Number(prompt("Enter desired grid size for the Etch-A-Square-Doodle. (between 16-100)"));
-    if(typeof newGridSize!=='number' ||newGridSize<16 || newGridSize>100) {
+    let newGridSize = prompt("Enter desired grid size for the Etch-A-Square-Doodle. (between 16-100)");
+    if(!newGridSize.match(/^[\d]+$/) || Number(newGridSize)<16 || Number(newGridSize)>100) {
         alert("Invalid input. Make sure requested grid size is an integer between 16 and 100 inclusive.");
-        handleButtonClickGrid(event);
+        newGridSize = 16;
     }
-    makeGrid(newGridSize, newGridSize);
+    makeGrid(Number(newGridSize), Number(newGridSize));
 }
 
 const listenGridButton = () => {
@@ -26,8 +73,8 @@ const listenGridButton = () => {
 
 // Still working on color change option
 const listenColorButton = () => {
-    const colorBtn = document.getElementById("color_btn");
-    colorBtn.addEventListener('click', handleButtonClickGrid);
+    const optionsBtn = document.getElementById("color_options_btn");
+    optionsBtn.addEventListener('click', handleButtonClickGrid);
 }
 
 const makeGrid = (rows=16, cells=16) => {
@@ -36,7 +83,7 @@ const makeGrid = (rows=16, cells=16) => {
     old_grid_container.remove();
     const grid_container =  document.createElement('div');
     grid_container.className = 'grid_container';
-    const btn_group = document.querySelector('btn_group');
+    const bottomGrid = document.querySelector('bottom_grid');
     
     for(let i=0; i<rows; i++) {
         const newRow = document.createElement('div');
@@ -45,14 +92,15 @@ const makeGrid = (rows=16, cells=16) => {
             const newCell = document.createElement('div');
             newCell.className = `cells cell${i}_${j}`;
             newCell.id = `cell${i}_${j}`;
-            newCell.style.height = `min(80vw / ${cells}, 2rem)`;
-            newCell.style.width = `min(80vw / ${cells}, 2rem)`;
+            newCell.style.background = 'rgb(155, 175, 185)'
+            newCell.style.height = `min(70vw / ${cells}, 60vh / ${cells})`;
+            newCell.style.width = `min(70vw / ${cells}, 60vh / ${cells})`;
             newRow.appendChild(newCell);
         }
         grid_container.appendChild(newRow);
     }
 
-    main.insertBefore(grid_container, btn_group);
+    main.insertBefore(grid_container, bottomGrid);
     listenMouseOver();
 }
 
