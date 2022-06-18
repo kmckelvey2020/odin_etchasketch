@@ -1,0 +1,30 @@
+* {
+    box-sizing: border-box;
+    margin: 0rem 0rem;
+    padding: 0rem 0rem;
+}
+
+html, body, :root {
+    font-size: 16px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+}
+
+.grid_container {
+    border: 2px solid red;
+    margin: 0rem min(10vw, 15%);
+}
+
+.rows {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cells {
+    border: 2px solid green;
+}
+
+
+
+
