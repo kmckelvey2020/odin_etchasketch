@@ -4,7 +4,7 @@
     padding: 0rem 0rem;
 }
 
-html, body, :root, .btn, .color_btn {
+html, body, :root, .btn, .color_btn, .clear_btn {
     font-size: 16px;
     font-family: 'Source Code Pro', monospace, Cambria, Cochin, Georgia, serif;
 }
@@ -66,7 +66,7 @@ footer {
     width: min(25vw, 9rem);
 }
 
-.btn:hover, .color_btn:hover, .color_input:hover {
+.btn:hover, .color_btn:hover, .color_input:hover, .clear_btn:hover {
     box-shadow: inset -0.25rem 0.25rem 0.5rem 0.5rem rgba(100, 100, 100, 0.25),
     -0.15rem 0.15rem 0.5rem 0.15rem rgba(255, 200, 200, 0.75);
 }
@@ -92,7 +92,7 @@ footer {
     text-align: center;
 }
 
-.color_btn, .color_input {
+.color_btn, .color_input, .clear_btn {
     background-color: darkred;
     border: 0.1rem solid black;
     border-radius: 0.2rem;

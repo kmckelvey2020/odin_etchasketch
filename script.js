@@ -125,11 +125,20 @@ const handleButtonClickColor = () => {
     const colorBtn = document.getElementById("color_btn");
     if(colorBtn.value==='solid') {
         colorBtn.value = 'rainbow';
-        colorBtn.innerHTML = 'solid/<strong>RAINBOW</strong>';
+        colorBtn.innerHTML = 'solid/<br/><strong>RAINBOW</strong>';
     } else {
         colorBtn.value = 'solid';
-        colorBtn.innerHTML = '<strong>SOLID</strong>/rainbow';
+        colorBtn.innerHTML = '<strong>SOLID</strong>/<br/>rainbow';
     }
+}
+
+/* ********************************* //
+//       CLEAR THE GRID (RESET)      //
+// ********************************* */
+const handleButtonClickClear = () => {
+    let gridSize = `${document.getElementById("grid_btn").innerHTML}`;
+    gridSize = gridSize.split(' ')[0].split('x')[0];
+    makeGrid(Number(gridSize), Number(gridSize));
 }
 
 /* ********************************* //
@@ -148,6 +157,11 @@ const listenFunctionButton = () => {
 const listenColorButton = () => {
     const colorBtn = document.getElementById("color_btn");
     colorBtn.addEventListener('click', handleButtonClickColor);
+}
+
+const listenClearButton = () => {
+    const clearBtn = document.getElementById("clear_btn");
+    clearBtn.addEventListener('click', handleButtonClickClear);
 }
 
 /* ********************************* //
@@ -197,4 +211,5 @@ const makeGrid = (rows=30, cells=30) => {
 listenGridButton();
 listenFunctionButton();
 listenColorButton();
+listenClearButton();
 makeGrid();
