@@ -53,6 +53,7 @@ const eraseBG = (event) => {
 const toggleOn = (event) => {
     const powerSwitch = document.querySelector('.grid_power_switch');
     powerSwitch.value = 'on';
+    sketchEtch(event);
 }
 
 const toggleOff = () => {
