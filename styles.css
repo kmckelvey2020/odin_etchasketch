@@ -77,8 +77,14 @@ footer {
     border-radius: 0.5rem;
     box-shadow: inset 1rem .25rem 1rem 0.5rem rgba(100, 100, 100, .25),
         0.1rem 0.1rem 0.5rem 0.25rem rgba(255, 200, 200, 0.75);
+    display: flex;
+    justify-content: center;
     margin: 1rem min(9vw, 10%) min(5vw, 1rem) min(9vw, 10%);
     padding: 0rem 0rem;
+}
+
+.grid_boundary {
+    width: max-content;
 }
 
 .grid_power_switch {

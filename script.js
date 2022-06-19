@@ -31,26 +31,30 @@ const sketchEtch = (event) => {
 // ***************************************** */
 const colorBG = (event, currColor) => {
     const target_cell = getTargetCell(event);
-    target_cell.style.backgroundColor = `${currColor}`;
+    if (target_cell) target_cell.style.backgroundColor = `${currColor}`;
 }
 
 const rainbowBG = (event) => {
     const colorArr = ['rgb(255, 0, 0)', 'rgb(255, 255, 0)', 'rgb(0, 250, 255)', 'rgb(40, 0, 255)', 'rgb(200, 0, 255)', 'rgb(255, 0, 220)', 'rgb(0, 255, 20)'];
     const rand = Math.floor(Math.random() * 7);
     const target_cell = getTargetCell(event);
-    target_cell.style.backgroundColor = `${colorArr[rand]}`;
+    if (target_cell) target_cell.style.backgroundColor = `${colorArr[rand]}`;
 }
 
 const eraseBG = (event) => {
     const target_cell = getTargetCell(event);
-    target_cell.style.backgroundColor = 'rgb(155, 175, 185)';
+    if (target_cell) target_cell.style.backgroundColor = 'rgb(155, 175, 185)';
 }
 
 const getTargetCell = (event) => {
+    console.log(event.type);
     if(event.type==='touchmove'){
         const x = event.targetTouches[0].clientX;
         const y = event.targetTouches[0].clientY;
-        return document.elementFromPoint(x, y);
+        const grid = document.querySelector('.grid_boundary').getBoundingClientRect();
+        if(x>Math.ceil(grid.left)+5 && x<Math.floor(grid.right)-5 && y<Math.floor(grid.bottom)-5 && y>Math.ceil(grid.top)+5) {
+            return document.elementFromPoint(x, y);
+        } else return;
     } else {
         return document.getElementById(event.target.id);
     }
@@ -62,7 +66,7 @@ const getTargetCell = (event) => {
 const toggleOn = (event) => {
     const powerSwitch = document.querySelector('.grid_power_switch');
     powerSwitch.value = 'on';
-    //sketchEtch(event);
+    sketchEtch(event);
 }
 
 const toggleOff = () => {
@@ -157,6 +161,8 @@ const makeGrid = (rows=30, cells=30) => {
     old_grid_container.remove();
     const grid_container =  document.createElement('div');
     grid_container.className = 'grid_container';
+    const grid_boundary =  document.createElement('div');
+    grid_boundary.className = 'grid_boundary';
 
     // Grid will be appended to document before powerSwitch (bottom) section of main
     const powerSwitch = document.querySelector('.grid_power_switch');
@@ -180,9 +186,10 @@ const makeGrid = (rows=30, cells=30) => {
             newCell.style.touchAction = 'none';
             newRow.appendChild(newCell);
         }
-        grid_container.appendChild(newRow);
+        grid_boundary.appendChild(newRow);
     }
 
+    grid_container.appendChild(grid_boundary);
     main.insertBefore(grid_container, powerSwitch);
     addListeners(); // Set up mouse listeners for each cell
 }
