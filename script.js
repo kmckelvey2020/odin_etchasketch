@@ -107,10 +107,10 @@ const handleButtonClickFunction = () => {
     const functionSwitch = document.querySelector('.function_btn');
     if(functionSwitch.value==='draw') {
         functionSwitch.value = 'erase';
-        functionSwitch.innerHTML = 'draw/<br>ERASE';
+        functionSwitch.innerHTML = 'draw/<br><strong>ERASE</strong>';
     } else {
         functionSwitch.value = 'draw';
-        functionSwitch.innerHTML = 'DRAW/<br>erase';
+        functionSwitch.innerHTML = '<strong>DRAW</strong>/<br>erase';
     }
 }
 
@@ -121,10 +121,10 @@ const handleButtonClickColor = () => {
     const colorBtn = document.getElementById("color_btn");
     if(colorBtn.value==='solid') {
         colorBtn.value = 'rainbow';
-        colorBtn.innerHTML = 'RAINBOW';
+        colorBtn.innerHTML = 'solid/<strong>RAINBOW</strong>';
     } else {
         colorBtn.value = 'solid';
-        colorBtn.innerHTML = 'SOLID';
+        colorBtn.innerHTML = '<strong>SOLID</strong>/rainbow';
     }
 }
 
@@ -164,7 +164,7 @@ const makeGrid = (rows=30, cells=30) => {
     // When grid is redrawn, reset functionSwitch to DRAW
     const functionSwitch = document.querySelector('.function_btn');
     functionSwitch.value = 'draw';
-    functionSwitch.innerHTML = 'DRAW/<br>erase';
+    functionSwitch.innerHTML = '<strong>DRAW</strong>/<br>erase';
 
     // Create and append new grid
     for(let i=0; i<rows; i++) {

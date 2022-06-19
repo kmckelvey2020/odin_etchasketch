@@ -53,7 +53,7 @@ footer {
 .btn {
     border: 0.1rem solid black;
     border-radius: 50%;
-    box-shadow: inset -0.5rem 0.5rem 1rem 0.5rem rgba(100, 100, 100, 0.25),
+    box-shadow: inset -0.25rem 0.25rem 0.5rem 0.5rem rgba(100, 100, 100, 0.25),
         -0.25rem 0.25rem 0.5rem 0.25rem rgba(95, 0, 0, 0.75);
     cursor: pointer;
     display: inline-block;
@@ -66,12 +66,17 @@ footer {
     width: min(25vw, 9rem);
 }
 
+.btn:hover, .color_btn:hover, .color_input:hover {
+    box-shadow: inset -0.25rem 0.25rem 0.5rem 0.5rem rgba(100, 100, 100, 0.25),
+    -0.15rem 0.15rem 0.5rem 0.15rem rgba(255, 200, 200, 0.75);
+}
+
 .grid_container {
     background-color: rgb(135, 155, 165);
     border: 2px solid darkslategray;
     border-radius: 0.5rem;
     box-shadow: inset 1rem .25rem 1rem 0.5rem rgba(100, 100, 100, .25),
-        0.1rem 0.1rem 0.5rem 0.25rem rgba(255, 255, 255, 0.75);
+        0.1rem 0.1rem 0.5rem 0.25rem rgba(255, 200, 200, 0.75);
     margin: 1rem min(9vw, 10%) min(5vw, 1rem) min(9vw, 10%);
     padding: 0rem 0rem;
 }
@@ -85,12 +90,12 @@ footer {
     background-color: darkred;
     border: 0.1rem solid black;
     border-radius: 0.2rem;
-    box-shadow: inset -0.5rem 0.5rem 1rem 0.5rem rgba(100, 100, 100, 0.25),
+    box-shadow: inset -0.25rem 0.25rem 0.5rem 0.5rem rgba(100, 100, 100, 0.25),
         -0.25rem 0.25rem 0.5rem 0.25rem rgba(95, 0, 0, 0.75);
     color: white;
     cursor: pointer;
     display: inline-block;
-    font-size: min(5vw, 2rem);
+    font-size: min(5vw, 1.5rem);
     margin: 0rem 0rem;
     padding: 0.5rem 0.5rem;
     text-align: center;
