@@ -10,7 +10,6 @@ const sketchEtch = (event) => {
     const currPowerState = powerSwitch.value;
     const functionSwitch = document.querySelector('.function_btn');
     const currFunction = functionSwitch.value;
-    console.log(event.target.id);
     if(currPowerState==='on' && currFunction==='draw') {
         switch(currColorType) {
             case 'solid':
@@ -31,20 +30,30 @@ const sketchEtch = (event) => {
 // OPTIONS (SOLID DRAW, RAINBOW DRAW, ERASE) //
 // ***************************************** */
 const colorBG = (event, currColor) => {
-    const target_cell = document.getElementById(event.target.id);
+    const target_cell = getTargetCell(event);
     target_cell.style.backgroundColor = `${currColor}`;
 }
 
 const rainbowBG = (event) => {
     const colorArr = ['rgb(255, 0, 0)', 'rgb(255, 255, 0)', 'rgb(0, 250, 255)', 'rgb(40, 0, 255)', 'rgb(200, 0, 255)', 'rgb(255, 0, 220)', 'rgb(0, 255, 20)'];
     const rand = Math.floor(Math.random() * 7);
-    const target_cell = document.getElementById(event.target.id);
+    const target_cell = getTargetCell(event);
     target_cell.style.backgroundColor = `${colorArr[rand]}`;
 }
 
 const eraseBG = (event) => {
-    const target_cell = document.getElementById(event.target.id);
+    const target_cell = getTargetCell(event);
     target_cell.style.backgroundColor = 'rgb(155, 175, 185)';
+}
+
+const getTargetCell = (event) => {
+    if(event.type==='touchmove'){
+        const x = event.targetTouches[0].clientX;
+        const y = event.targetTouches[0].clientY;
+        return document.elementFromPoint(x, y);
+    } else {
+        return document.getElementById(event.target.id);
+    }
 }
 
 /* ********************************* //
@@ -53,7 +62,7 @@ const eraseBG = (event) => {
 const toggleOn = (event) => {
     const powerSwitch = document.querySelector('.grid_power_switch');
     powerSwitch.value = 'on';
-    sketchEtch(event);
+    //sketchEtch(event);
 }
 
 const toggleOff = () => {
@@ -64,7 +73,7 @@ const toggleOff = () => {
 /* ********************************* //
 //  EVENT LISTENERS FOR GRID CELLS   //
 // ********************************* */
-const listenMouse = () => {
+const addListeners = () => {
     const gridCells = document.querySelectorAll('.cells');
     gridCells.forEach((gridCell) => {
         gridCell.addEventListener('mousedown', toggleOn);
@@ -175,7 +184,7 @@ const makeGrid = (rows=30, cells=30) => {
     }
 
     main.insertBefore(grid_container, powerSwitch);
-    listenMouse(); // Set up mouse listeners for each cell
+    addListeners(); // Set up mouse listeners for each cell
 }
 
 listenGridButton();
