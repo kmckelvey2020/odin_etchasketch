@@ -1,23 +1,25 @@
 const sketchEtch = (event) => {
-    const optionsBtn = document.getElementById("color_options_btn");
-    const currAction = optionsBtn.value;
-    const currColor = 'black';
+    const colorBtn = document.getElementById("color_btn");
+    const currColorType = colorBtn.value;
+    const colorInput = document.getElementById("color_input");
+    const currSolid = colorInput.value;
     const powerSwitch = document.querySelector('.grid_power_switch');
-    const currPowerState = powerSwitch.id;
-    if(currPowerState==='on') {
-        switch(currAction) {
-            case 'colorBG':
-                colorBG(event, currColor);
+    const currPowerState = powerSwitch.value;
+    const functionSwitch = document.querySelector('.function_btn');
+    const currFunction = functionSwitch.value;
+    if(currPowerState==='on' && currFunction==='draw') {
+        switch(currColorType) {
+            case 'solid':
+                colorBG(event, currSolid);
                 break;
-            case 'rainbowBG':
+            case 'rainbow':
                 rainbowBG(event);
-                break;
-            case 'eraseBG':
-                eraseBG(event);
                 break;
             default:
                 break;
         }
+    } else if(currPowerState==='on' && currFunction==='erase') {
+        eraseBG(event);
     }
 }
 
@@ -27,8 +29,8 @@ const colorBG = (event, currColor) => {
 }
 
 const rainbowBG = (event) => {
-    const colorArr = ['rgb(0, 250, 255)', 'rgb(40, 0, 255)', 'rgb(255, 0, 220)', 'rgb(0, 255, 20)'];
-    const rand = Math.floor(Math.random() * 4);
+    const colorArr = ['rgb(255, 0, 0)', 'rgb(255, 255, 0)', 'rgb(0, 250, 255)', 'rgb(40, 0, 255)', 'rgb(200, 0, 255)', 'rgb(255, 0, 220)', 'rgb(0, 255, 20)'];
+    const rand = Math.floor(Math.random() * 7);
     const target_cell = document.getElementById(event.target.id);
     target_cell.style.backgroundColor = `${colorArr[rand]}`;
 }
@@ -40,15 +42,15 @@ const eraseBG = (event) => {
 
 const toggleOn = () => {
     const powerSwitch = document.querySelector('.grid_power_switch');
-    powerSwitch.id = 'on';
+    powerSwitch.value = 'on';
 }
 
 const toggleOff = () => {
     const powerSwitch = document.querySelector('.grid_power_switch');
-    powerSwitch.id = 'off';
+    powerSwitch.value = 'off';
 }
 
-const listenMouseOver = () => {
+const listenMouse = () => {
     const gridCells = document.querySelectorAll('.cells');
     gridCells.forEach((gridCell) => {
         gridCell.addEventListener('mousedown', toggleOn);
@@ -57,13 +59,37 @@ const listenMouseOver = () => {
     });  
 }
 
-const handleButtonClickGrid = (event) => {
+const handleButtonClickGrid = () => {
     let newGridSize = prompt("Enter desired grid size for the Etch-A-Square-Doodle. (between 16-100)");
     if(!newGridSize.match(/^[\d]+$/) || Number(newGridSize)<16 || Number(newGridSize)>100) {
         alert("Invalid input. Make sure requested grid size is an integer between 16 and 100 inclusive.");
         newGridSize = 16;
     }
+    const gridBtn = document.getElementById("grid_btn");
+    gridBtn.innerHTML = `${newGridSize}x${newGridSize} Grid`;
     makeGrid(Number(newGridSize), Number(newGridSize));
+}
+
+const handleButtonClickFunction = () => {
+    const functionSwitch = document.querySelector('.function_btn');
+    if(functionSwitch.value==='draw') {
+        functionSwitch.value = 'erase';
+        functionSwitch.innerHTML = 'draw/<br>ERASE';
+    } else {
+        functionSwitch.value = 'draw';
+        functionSwitch.innerHTML = 'DRAW/<br>erase';
+    }
+}
+
+const handleButtonClickColor = () => {
+    const colorBtn = document.getElementById("color_btn");
+    if(colorBtn.value==='solid') {
+        colorBtn.value = 'rainbow';
+        colorBtn.innerHTML = 'RAINBOW';
+    } else {
+        colorBtn.value = 'solid';
+        colorBtn.innerHTML = 'SOLID';
+    }
 }
 
 const listenGridButton = () => {
@@ -71,20 +97,34 @@ const listenGridButton = () => {
     gridBtn.addEventListener('click', handleButtonClickGrid);
 }
 
-// Still working on color change option
-const listenColorButton = () => {
-    const optionsBtn = document.getElementById("color_options_btn");
-    optionsBtn.addEventListener('click', handleButtonClickGrid);
+const listenFunctionButton = () => {
+    const functionBtn = document.getElementById("function_btn");
+    functionBtn.addEventListener('click', handleButtonClickFunction);
 }
 
-const makeGrid = (rows=16, cells=16) => {
-    const main = document.querySelector('main');
+const listenColorButton = () => {
+    const colorBtn = document.getElementById("color_btn");
+    colorBtn.addEventListener('click', handleButtonClickColor);
+}
+
+const makeGrid = (rows=30, cells=30) => {
+    const main = document.querySelector('.main');
+
+    // Remove old grid and redraw with current squares per grid side (rows x cells)
     const old_grid_container = document.querySelector('.grid_container');
     old_grid_container.remove();
     const grid_container =  document.createElement('div');
     grid_container.className = 'grid_container';
-    const bottomGrid = document.querySelector('bottom_grid');
-    
+
+    // Grid will be appended to document before powerSwitch (bottom) section of main
+    const powerSwitch = document.querySelector('.grid_power_switch');
+
+    // When grid is redrawn, reset functionSwitch to DRAW
+    const functionSwitch = document.querySelector('.function_btn');
+    functionSwitch.value = 'draw';
+    functionSwitch.innerHTML = 'DRAW/<br>erase';
+
+    // Create and append new grid
     for(let i=0; i<rows; i++) {
         const newRow = document.createElement('div');
         newRow.className = `rows row${i}`;
@@ -100,10 +140,11 @@ const makeGrid = (rows=16, cells=16) => {
         grid_container.appendChild(newRow);
     }
 
-    main.insertBefore(grid_container, bottomGrid);
-    listenMouseOver();
+    main.insertBefore(grid_container, powerSwitch);
+    listenMouse(); // Set up mouse listeners for each cell
 }
 
 listenGridButton();
+listenFunctionButton();
 listenColorButton();
 makeGrid();

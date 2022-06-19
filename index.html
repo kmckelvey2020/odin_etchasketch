@@ -4,19 +4,26 @@
         <meta charset='UTF-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
         <meta http-equiv='X-UA-Compatible' content='ie-edge'>
-        <title>Title</title>
+        <title>Etch-A-Square-Doodle</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Meow+Script&family=Source+Code+Pro&display=swap" rel="stylesheet">
         <link rel='stylesheet' href='styles.css'>
     </head>
     <body>
         <header>
         </header>
-        <main>
-            <div class="btn_group">
-                <button class="btn grid_btn" id="grid_btn">Change Grid Squares</button>
-                <button class="btn color_options_btn" id="color_options_btn" value="colorBG">Options</button>
+        <main id="main" class="main">
+            <div class="btn_group" id="btn_group">
+                <button class="btn function_btn" id="function_btn">DRAW/<br>erase</button>
+                <button class="btn grid_btn" id="grid_btn">30x30 Grid</button>
             </div>
             <div class="grid_container"></div>
-            <div class="grid_power_switch"></div>
+            <div class="grid_power_switch" id="grid_power_switch">
+                <input type="color" class="color_input" id="color_input"></input>
+                <button class="color_btn" id="color_btn" value="solid">SOLID</button>
+                <h1>Etch-A-Square-Doodle</h1>
+            </div>
         </main>
         <footer>
         </footer>

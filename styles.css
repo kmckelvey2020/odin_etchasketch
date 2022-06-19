@@ -4,9 +4,9 @@
     padding: 0rem 0rem;
 }
 
-html, body, :root, .btn {
+html, body, :root, .btn, .grid_btn {
     font-size: 16px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: 'Source Code Pro', monospace, Cambria, Cochin, Georgia, serif;
 }
 
 body {
@@ -14,24 +14,31 @@ body {
     min-width: 100%;
 }
 
+h1 {
+    font-family: 'Meow Script', 'Source Code Pro', monospace;
+    font-size: min(10vw, 6rem);
+    padding: 0.5rem 0.5rem;
+    text-shadow: 0.1rem 0.1rem 0.25rem rgba(255, 200, 200, 0.75);
+}
+
 header {
-    min-height: min(10vh, 10rem);
+    min-height: min(10vh, 1rem);
 }
 
 main {
     background-color: darkred;
     border: 2px solid darkslategray;
     border-radius: 0.5rem;
-    box-shadow: inset 0.5rem -1.5rem 1rem 0.5rem rgba(255, 255, 255, 0.25), 
-        inset 1rem 1rem 1rem 0.5rem rgba(100, 100, 100, .5),
-        0.1rem 0.1rem 1rem 0.25rem rgba(255, 255, 255, 0.75);
-    min-height: min(75vh, 55rem);
+    box-shadow: inset 0.5rem -0.5rem 0.5rem 0.25rem rgba(255, 255, 255, 0.25), 
+        inset 0.5rem 0.5rem 0.5rem 0.25rem rgba(100, 100, 100, .5),
+        0.1rem 0.1rem 0.5rem 0.25rem rgba(255, 255, 255, 0.75);
+    min-height: min(75vh, 50rem);
     margin: 0rem min(6vw, 10%) 0rem min(6vw, 10%);
-    padding: min(5vw, 3rem) 0rem min(5vw, 6rem) 0rem;
+    padding: min(5vw, 1rem) 0rem min(5vw, 1rem) 0rem;
 }
 
 footer {
-    min-height: min(10vh, 10rem);
+    min-height: min(10vh, 6rem);
 }
 
 .btn_group {
@@ -39,7 +46,7 @@ footer {
     flex-wrap: wrap;
     gap: min(2vw, 2rem);
     justify-content: space-between;
-    margin: 1rem min(6vw, 10%);
+    margin: 0.5rem min(6vw, 10%);
     padding: 0rem 0rem;
 }
 
@@ -47,26 +54,54 @@ footer {
     border: 0.1rem solid black;
     border-radius: 50%;
     box-shadow: inset -0.5rem 0.5rem 1rem 0.5rem rgba(100, 100, 100, 0.25),
-        -0.5rem 0.5rem 0.5rem 0.5rem rgba(95, 0, 0, 0.75);
+        -0.25rem 0.25rem 0.5rem 0.25rem rgba(95, 0, 0, 0.75);
     cursor: pointer;
     display: inline-block;
-    font-size: min(5vw, 2rem);
-    height: min(25vw, 10rem);
+    font-size: min(5vw, 1.5rem);
+    height: min(20vw, 9rem);
     margin: 0rem 0rem;
     padding: 0rem 0rem;
     text-align: center;
     text-decoration: none;
-    width: min(25vw, 10rem);
+    width: min(20vw, 9rem);
 }
 
 .grid_container {
-    background-color: lightslategray;
+    background-color: rgb(135, 155, 165);
     border: 2px solid darkslategray;
     border-radius: 0.5rem;
     box-shadow: inset 1rem .25rem 1rem 0.5rem rgba(100, 100, 100, .25),
-        0.1rem 0.1rem 1rem 0.25rem rgba(255, 255, 255, 0.75);
-    margin: 1rem min(9vw, 10%) min(5vw, 6rem) min(9vw, 10%);
+        0.1rem 0.1rem 0.5rem 0.25rem rgba(255, 255, 255, 0.75);
+    margin: 1rem min(9vw, 10%) min(5vw, 1rem) min(9vw, 10%);
     padding: 0rem 0rem;
+}
+
+.grid_power_switch {
+    margin: 1rem min(9vw, 10%) 1rem min(9vw, 10%);
+    text-align: center;
+}
+
+.color_btn, .color_input {
+    background-color: darkred;
+    border: 0.1rem solid black;
+    border-radius: 0.2rem;
+    box-shadow: inset -0.5rem 0.5rem 1rem 0.5rem rgba(100, 100, 100, 0.25),
+        -0.25rem 0.25rem 0.5rem 0.25rem rgba(95, 0, 0, 0.75);
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: min(5vw, 2rem);
+    margin: 0rem 0rem;
+    padding: 0.5rem 0.5rem;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+.color_input {
+    height: min(15vw, 3rem);
+    padding: 0rem 0rem;
+    width: min(15vw, 5rem)
 }
 
 .rows {
