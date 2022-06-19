@@ -4,7 +4,7 @@
     padding: 0rem 0rem;
 }
 
-html, body, :root, .btn, .grid_btn {
+html, body, :root, .btn, .color_btn {
     font-size: 16px;
     font-family: 'Source Code Pro', monospace, Cambria, Cochin, Georgia, serif;
 }
@@ -58,12 +58,12 @@ footer {
     cursor: pointer;
     display: inline-block;
     font-size: min(5vw, 1.5rem);
-    height: min(20vw, 9rem);
+    height: min(25vw, 9rem);
     margin: 0rem 0rem;
     padding: 0rem 0rem;
     text-align: center;
     text-decoration: none;
-    width: min(20vw, 9rem);
+    width: min(25vw, 9rem);
 }
 
 .grid_container {

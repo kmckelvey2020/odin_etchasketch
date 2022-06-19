@@ -1,3 +1,6 @@
+/* ********************************* //
+//         SKETCH FUNCTIONS          //
+// ********************************* */
 const sketchEtch = (event) => {
     const colorBtn = document.getElementById("color_btn");
     const currColorType = colorBtn.value;
@@ -7,6 +10,7 @@ const sketchEtch = (event) => {
     const currPowerState = powerSwitch.value;
     const functionSwitch = document.querySelector('.function_btn');
     const currFunction = functionSwitch.value;
+    console.log(event.target.id);
     if(currPowerState==='on' && currFunction==='draw') {
         switch(currColorType) {
             case 'solid':
@@ -23,6 +27,9 @@ const sketchEtch = (event) => {
     }
 }
 
+/* ***************************************** //
+// OPTIONS (SOLID DRAW, RAINBOW DRAW, ERASE) //
+// ***************************************** */
 const colorBG = (event, currColor) => {
     const target_cell = document.getElementById(event.target.id);
     target_cell.style.backgroundColor = `${currColor}`;
@@ -40,7 +47,10 @@ const eraseBG = (event) => {
     target_cell.style.backgroundColor = 'rgb(155, 175, 185)';
 }
 
-const toggleOn = () => {
+/* ********************************* //
+//           ON/OFF TOGGLE           //
+// ********************************* */
+const toggleOn = (event) => {
     const powerSwitch = document.querySelector('.grid_power_switch');
     powerSwitch.value = 'on';
 }
@@ -50,25 +60,38 @@ const toggleOff = () => {
     powerSwitch.value = 'off';
 }
 
+/* ********************************* //
+//  EVENT LISTENERS FOR GRID CELLS   //
+// ********************************* */
 const listenMouse = () => {
     const gridCells = document.querySelectorAll('.cells');
     gridCells.forEach((gridCell) => {
         gridCell.addEventListener('mousedown', toggleOn);
         gridCell.addEventListener('mouseup', toggleOff);
         gridCell.addEventListener('mouseover', sketchEtch);
+        gridCell.addEventListener('touchstart', toggleOn);
+        gridCell.addEventListener('touchend', toggleOff);
+        gridCell.addEventListener('touchmove', sketchEtch);
     });  
 }
 
+/* ********************************* //
+//            GRID SIZE              //
+// ********************************* */
 const handleButtonClickGrid = () => {
     let newGridSize = prompt("Enter desired grid size for the Etch-A-Square-Doodle. (between 16-100)");
     if(!newGridSize.match(/^[\d]+$/) || Number(newGridSize)<16 || Number(newGridSize)>100) {
         alert("Invalid input. Make sure requested grid size is an integer between 16 and 100 inclusive.");
-        newGridSize = 16;
+        newGridSize = 30;
     }
     const gridBtn = document.getElementById("grid_btn");
     gridBtn.innerHTML = `${newGridSize}x${newGridSize} Grid`;
     makeGrid(Number(newGridSize), Number(newGridSize));
 }
+
+/* ********************************* //
+//     FUNCTION TOGGLE DRAW/ERASE    //
+// ********************************* */
 
 const handleButtonClickFunction = () => {
     const functionSwitch = document.querySelector('.function_btn');
@@ -81,6 +104,9 @@ const handleButtonClickFunction = () => {
     }
 }
 
+/* ********************************* //
+//   COLOR TYPE (SOLID OR RAINBOW)   //
+// ********************************* */
 const handleButtonClickColor = () => {
     const colorBtn = document.getElementById("color_btn");
     if(colorBtn.value==='solid') {
@@ -92,6 +118,9 @@ const handleButtonClickColor = () => {
     }
 }
 
+/* ********************************* //
+//       BUTTON LISTENERS            //
+// ********************************* */
 const listenGridButton = () => {
     const gridBtn = document.getElementById("grid_btn");
     gridBtn.addEventListener('click', handleButtonClickGrid);
@@ -107,6 +136,9 @@ const listenColorButton = () => {
     colorBtn.addEventListener('click', handleButtonClickColor);
 }
 
+/* ********************************* //
+//        MAKEGRID FUNCTION          //
+// ********************************* */
 const makeGrid = (rows=30, cells=30) => {
     const main = document.querySelector('.main');
 
@@ -135,6 +167,7 @@ const makeGrid = (rows=30, cells=30) => {
             newCell.style.background = 'rgb(155, 175, 185)'
             newCell.style.height = `min(70vw / ${cells}, 60vh / ${cells})`;
             newCell.style.width = `min(70vw / ${cells}, 60vh / ${cells})`;
+            newCell.style.touchAction = 'none';
             newRow.appendChild(newCell);
         }
         grid_container.appendChild(newRow);
