@@ -1,15 +1,15 @@
 /* ********************************* //
-//         SKETCH FUNCTIONS          //
+//         SKETCH FUNCTION           //
 // ********************************* */
 const sketchEtch = (event) => {
-    const colorBtn = document.getElementById("color_btn");
-    const currColorType = colorBtn.value;
-    const colorInput = document.getElementById("color_input");
-    const currSolid = colorInput.value;
-    const powerSwitch = document.querySelector('.grid_power_switch');
-    const currPowerState = powerSwitch.value;
-    const functionSwitch = document.querySelector('.function_btn');
-    const currFunction = functionSwitch.value;
+    const currColorType = document.getElementById("color_btn").value;
+    //const currColorType = colorBtn.value;
+    const currSolid = document.getElementById("color_input").value;
+    //const currSolid = colorInput.value;
+    const currPowerState = document.querySelector('.grid_power_switch').value;
+    //const currPowerState = powerSwitch.value;
+    const currFunction = document.querySelector('.function_btn').value;
+    //const currFunction = functionSwitch.value;
     if(currPowerState==='on' && currFunction==='draw') {
         switch(currColorType) {
             case 'solid':
@@ -47,7 +47,6 @@ const eraseBG = (event) => {
 }
 
 const getTargetCell = (event) => {
-    console.log(event.type);
     if(event.type==='touchmove'){
         const x = event.targetTouches[0].clientX;
         const y = event.targetTouches[0].clientY;
@@ -205,7 +204,7 @@ const makeGrid = (rows=30, cells=30) => {
 
     grid_container.appendChild(grid_boundary);
     main.insertBefore(grid_container, powerSwitch);
-    addListeners(); // Set up mouse listeners for each cell
+    addListeners(); // Set up listeners for each cell
 }
 
 listenGridButton();
